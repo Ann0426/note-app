@@ -6,7 +6,7 @@ import NotesList from './components/NotesList';
 import Header from './components/Header';
 
 const App = () => {
-	myRef = React.createRef();
+
 
 	const [notes, setNotes] = useState([]);
 	const [swap, setSwap] = useState([]);
