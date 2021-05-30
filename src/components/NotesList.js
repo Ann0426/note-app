@@ -6,7 +6,7 @@ const NotesList = ({
 	notes,
 	handleAddNote,
 	handleDeleteNote,handleEditNote, handleSwap,handleSwapDelete,select,
-	setSelect,
+	setSelect
 }) => {
 	
 	return (
@@ -14,6 +14,7 @@ const NotesList = ({
 			{notes.map((note) => (
 				
 				<Note
+					
 					id={note.id}
 					text={note.text}
 					date={note.date}

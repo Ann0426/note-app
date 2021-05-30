@@ -1,7 +1,8 @@
 import {MdEdit,MdDeleteForever} from 'react-icons/md';
-import { useState, useEffect } from 'react';
+import { useState, useEffect ,useRef} from 'react';
 
 const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDelete,select,setSelect}) =>{
+   
     const [editting, setEditting] = useState(false);
     const [noteText, setNoteText] = useState(text);
     
@@ -37,7 +38,8 @@ const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDele
     }
 
     
-    return <div className='note'onClick={(event) => handleSelected(event)}>
+    return <div className='note' onClick={(event) => handleSelected(event)}>
+      
         { !editting ? (<> <div className='note-content'>{text}</div>
         <div className='note-footer'>
             <small>{date}</small>

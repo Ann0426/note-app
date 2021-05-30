@@ -1,17 +1,40 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect,} from 'react';
 import { nanoid } from 'nanoid';
-
+import { auth } from "./firebase";
+import { useStateValue } from "./StateProvider";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NotesList from './components/NotesList';
-
 import Header from './components/Header';
+import Login from'./components/Login';
 
 const App = () => {
-
 
 	const [notes, setNotes] = useState([]);
 	const [swap, setSwap] = useState([]);
 	const [select,setSelect] = useState(false);
+	const [{}, dispatch] = useStateValue();
+	useEffect(() => {
+        // will only run once when the app component loads...
 
+        auth.onAuthStateChanged((authUser) => {
+            console.log("THE USER IS >>> ", authUser);
+
+            if (authUser) {
+                // the user just logged in / the user was logged in
+
+                dispatch({
+                    type: "SET_USER",
+                    user: authUser,
+                });
+            } else {
+                // the user is logged out
+                dispatch({
+                    type: "SET_USER",
+                    user: null,
+                });
+            }
+        });
+    }, []);
 
 	useEffect(() => {
 		const savedNotes = JSON.parse(
@@ -89,35 +112,42 @@ const App = () => {
 			setNotes(newNote)
 			setSelect(false)
 			setSwap([])
-			
-
-
 		}
 		console.log("after swap newNote",swap)
 		
 	}, [swap,select])
-	
-	
-	
+
 
 	return (
-		
-			<div className='container'>
-				<Header/>
-		
-				<NotesList
-					notes={notes}
-					handleAddNote={addNote}
-					handleDeleteNote={deleteNote}
-					handleEditNote={editNote}
-					handleSwap={ handleSwap}
-					handleSwapDelete ={handleSwapDelete }
-					select={select}
-					setSelect={setSelect}
+		<div>
+		<Router>
+			
+			<Route  exact  path = "/" >
 				
-				/>
-			</div>
+				<div className='container'>
+					<Header/>
+					
+			
+					<NotesList
+						
+						notes={notes}
+						handleAddNote={addNote}
+						handleDeleteNote={deleteNote}
+						handleEditNote={editNote}
+						handleSwap={ handleSwap}
+						handleSwapDelete ={handleSwapDelete }
+						select={select}
+						setSelect={setSelect}
+					
+					/>
+				</div>
+			</Route>
+			<Route path = "/login" >
+				<Login/>
+			</Route>
 		
+	</Router>	
+	</div>
 	);
 };
 
