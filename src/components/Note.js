@@ -15,8 +15,11 @@ const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDele
 	};
 
 	const handleSelected = (event) => 
-        { 
+        {  event.stopPropagation();
+            event.preventDefault();
+            if (event.target === event.currentTarget){
             setSelect((select) => !select)
+            console.log("handleSelected select:",select)
             if (select){ event.target.classList.add("note-select");}
             else {event.target.classList.remove("note-select");}
             const note = {
@@ -26,6 +29,7 @@ const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDele
               };
             if (select) {handleSwap(note)}
             else{handleSwapDelete(id)}
+            }
         } ;
     const handleEditClick = (id) => {
         const date = new Date();
@@ -39,9 +43,9 @@ const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDele
     }
 
     
-    return <div className='note' onClick={(event) => handleSelected(event)}>
+    return<div className='note' onClick={(event) => handleSelected(event)}>
       
-        { !editting ? (<> <div className='note-content'>{text}</div>
+        { !editting ? (<> <div className='note-content'  >{text} </div>
         <div className='note-footer'>
             <small>{date}</small>
             <div className='icons'>
@@ -65,9 +69,9 @@ const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDele
             </button>
         </div>
         </>
-  )}
+        )}
        
-</div>
+            </div>
 
 }
 

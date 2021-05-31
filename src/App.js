@@ -2,7 +2,7 @@ import { useState, useEffect,} from 'react';
 import { nanoid } from 'nanoid';
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import NotesList from './components/NotesList';
 import Header from './components/Header';
 import Login from'./components/Login';
@@ -15,10 +15,8 @@ const App = () => {
 	const [{}, dispatch] = useStateValue();
 	useEffect(() => {
         // will only run once when the app component loads...
-
         auth.onAuthStateChanged((authUser) => {
-            console.log("THE USER IS >>> ", authUser);
-
+            console.log("USER ", authUser);
             if (authUser) {
                 // the user just logged in / the user was logged in
 
@@ -76,19 +74,27 @@ const App = () => {
 	const deleteNote = (id) => {
 		const newNotes = notes.filter((note) => note.id !== id);
 		setNotes(newNotes)
-		setSwap([]);
+		console.log("deleteNote newNotes:",newNotes)
+		setSwap([])
+		console.log("deleteNote swap:",swap)
+		
 	};
 	
 	const handleSwapDelete = (id) => {
 	
 		const newSwap = swap.filter((swap) => swap.id !== id);
-		console.log(newSwap);
 		setSwap(newSwap)
+		console.log("newswapdel",newSwap);
 		;}
 
-	const handleSwap = (note) =>{setSwap([...swap,note])}
+	const handleSwap = (note) =>{
+		setSwap([...swap,note]);
+		console.log(" handleSwap note",note);
+		console.log(" handleSwap swap",swap);
+	}
 
 	useEffect(() => {
+		if(swap.length<2) return
 		if (swap.length>2) return
 		else if(swap.length==2){
 			let [swap1,swap2] = swap
@@ -109,14 +115,11 @@ const App = () => {
 				} else if(note.id === swap_id2) return {id:swap_id2,text:swap_text1,date:swap_date1};
 				else return note;
 			});
-			
-
 			console.log("newNote",newNote)
 			setNotes(newNote)
-			// setSelect(false)
 			setSwap([])
 		}
-		console.log("after swap newNote",swap)
+		console.log("after swap newswap",swap)
 		
 	}, [swap])
 
@@ -129,17 +132,14 @@ const App = () => {
 				
 				<div className='container'>
 					<Header/>
-					<NotesList
-						
+					<NotesList	
 						notes={notes}
 						handleAddNote={addNote}
 						handleDeleteNote={deleteNote}
 						handleEditNote={editNote}
 						handleSwap={ handleSwap}
 						handleSwapDelete ={handleSwapDelete }
-						// select={select}
-						// setSelect={setSelect}
-					
+	
 					/>
 				</div>
 			</Route>
