@@ -24,7 +24,7 @@ const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDele
                 id: id
               };
             if (select) {handleSwap(note)}
-            if(!select){handleSwapDelete(event,id)}
+            else{handleSwapDelete(id)}
         } ;
     const handleEditClick = (id) => {
         const date = new Date();

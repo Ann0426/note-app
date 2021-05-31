@@ -9,7 +9,7 @@ import Login from'./components/Login';
 
 const App = () => {
 
-	const [notes, setNotes] = useState([]);
+	const [notes, setNotes] = useState([]); // [obj,obj ....]
 	const [swap, setSwap] = useState([]);
 	const [select,setSelect] = useState(false);
 	const [{}, dispatch] = useStateValue();
@@ -78,13 +78,14 @@ const App = () => {
 		setNotes(newNotes);
 	};
 	
-	const handleSwapDelete = (event,id) => {
+	const handleSwapDelete = (id) => {
 	
 		const newSwap = swap.filter((swap) => swap.id !== id);
 		console.log(newSwap);
 		setSwap(newSwap);}
 
 	const handleSwap = (note) =>{setSwap([...swap,note])}
+
 	useEffect(() => {
 		if (swap.length>2) return
 		else if(swap.length==2){
@@ -115,7 +116,7 @@ const App = () => {
 		}
 		console.log("after swap newNote",swap)
 		
-	}, [swap,select])
+	}, [swap])
 
 
 	return (
@@ -126,8 +127,6 @@ const App = () => {
 				
 				<div className='container'>
 					<Header/>
-					
-			
 					<NotesList
 						
 						notes={notes}
