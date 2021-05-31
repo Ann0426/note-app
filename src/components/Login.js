@@ -63,7 +63,7 @@ function Login() {
 
         <button 
         onClick = { register }
-        className = 'login__registerButton' > Create your Ring Account </button>
+        className = 'login__registerButton' > Create your Account </button>
          </div >
           </div>
     )
