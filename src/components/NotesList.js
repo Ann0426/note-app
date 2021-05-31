@@ -5,8 +5,7 @@ import AddNote from './AddNote';
 const NotesList = ({
 	notes,
 	handleAddNote,
-	handleDeleteNote,handleEditNote, handleSwap,handleSwapDelete,select,
-	setSelect
+	handleDeleteNote,handleEditNote, handleSwap,handleSwapDelete,
 }) => {
 	
 	return (
@@ -24,8 +23,8 @@ const NotesList = ({
 					EditNote={handleEditNote}
 					handleSwap = { handleSwap}
 					handleSwapDelete={handleSwapDelete}
-					select={select}
-					setSelect={setSelect}
+					// select={select}
+					// setSelect={setSelect}
 			
 				
 				

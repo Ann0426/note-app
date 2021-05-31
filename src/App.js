@@ -11,7 +11,7 @@ const App = () => {
 
 	const [notes, setNotes] = useState([]); // [obj,obj ....]
 	const [swap, setSwap] = useState([]);
-	const [select,setSelect] = useState(false);
+	
 	const [{}, dispatch] = useStateValue();
 	useEffect(() => {
         // will only run once when the app component loads...
@@ -75,14 +75,16 @@ const App = () => {
     
 	const deleteNote = (id) => {
 		const newNotes = notes.filter((note) => note.id !== id);
-		setNotes(newNotes);
+		setNotes(newNotes)
+		setSwap([]);
 	};
 	
 	const handleSwapDelete = (id) => {
 	
 		const newSwap = swap.filter((swap) => swap.id !== id);
 		console.log(newSwap);
-		setSwap(newSwap);}
+		setSwap(newSwap)
+		;}
 
 	const handleSwap = (note) =>{setSwap([...swap,note])}
 
@@ -111,7 +113,7 @@ const App = () => {
 
 			console.log("newNote",newNote)
 			setNotes(newNote)
-			setSelect(false)
+			// setSelect(false)
 			setSwap([])
 		}
 		console.log("after swap newNote",swap)
@@ -135,8 +137,8 @@ const App = () => {
 						handleEditNote={editNote}
 						handleSwap={ handleSwap}
 						handleSwapDelete ={handleSwapDelete }
-						select={select}
-						setSelect={setSelect}
+						// select={select}
+						// setSelect={setSelect}
 					
 					/>
 				</div>

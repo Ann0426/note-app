@@ -1,10 +1,11 @@
 import {MdEdit,MdDeleteForever} from 'react-icons/md';
 import { useState, useEffect ,useRef} from 'react';
 
-const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDelete,select,setSelect}) =>{
+const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDelete,}) =>{
    
     const [editting, setEditting] = useState(false);
     const [noteText, setNoteText] = useState(text);
+    const [select,setSelect] = useState(false);
     
 	const characterLimit = 255;
     const handleChange = (event) => {
