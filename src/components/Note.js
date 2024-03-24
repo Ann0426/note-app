@@ -1,4 +1,3 @@
-import {MdEdit,MdDeleteForever} from 'react-icons/md';
 import { useState, useEffect ,useRef} from 'react';
 
 const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDelete,}) =>{
@@ -49,8 +48,8 @@ const Note = ({id,text,date,handleDeleteNote,EditNote, handleSwap,handleSwapDele
         <div className='note-footer'>
             <small>{date}</small>
             <div className='icons'>
-                <MdEdit className='edit-icon' size='1.3em' onClick={() => { setEditting(true);}}/>
-                <MdDeleteForever onClick={() => handleDeleteNote(id)} className='delete-icon' size='1.3em'/>
+                <span onClick={() => handleDeleteNote(id)}>delete</span>
+                <span onClick={() => { setEditting(true);}}>edit</span>
             </div> 
         </div> </>): 
         (<>
